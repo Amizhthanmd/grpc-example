@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package example;
+
+option go_package = "./pb_files";
+
+service ExampleService {
+
+  // Unary
+  rpc SayHello (HelloRequest) returns (HelloReply);
+
+  // Client Streaming
+  rpc SendMessages (stream HelloRequest) returns (HelloReply);
+
+  // Server Streaming
+  rpc GetMessages (HelloRequest) returns (stream HelloReply);
+
+  // Bidirectional Streaming
+  rpc Chat (stream ChatMessage) returns (stream ChatMessage);
+
+}
+
+enum Actions {
+  CREATE = 0;
+  UPDATE = 1;
+  DELETE = 2;
+  START = 3;
+  STOP = 4;
+  RESTART = 5;
+}
+
+message HelloRequest {
+  string name = 1;
+  string message = 2;
+  Actions action = 3;
+}
+
+message HelloReply {
+  string message = 1;
+}
+
+message ChatMessage {
+  string message = 1;
+}
