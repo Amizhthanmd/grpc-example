@@ -51,7 +51,7 @@ func (s *server) SendMessages(stream pb.ExampleService_SendMessagesServer) error
 		if err != nil {
 			return err
 		}
-		messages = append(messages, req.GetMessage()) // Correctly access the "Name" field
+		messages = append(messages, req.GetMessage())
 	}
 	response := "Received messages: " + strings.Join(messages, ", ")
 	return stream.SendAndClose(&pb.HelloReply{Message: response})
@@ -63,7 +63,7 @@ func (s *server) GetMessages(req *pb.HelloRequest, stream pb.ExampleService_GetM
 		if err := stream.Send(&pb.HelloReply{Message: msg}); err != nil {
 			return err
 		}
-		time.Sleep(time.Second) // Simulate delay between messages
+		time.Sleep(time.Second)
 	}
 	return nil
 }
@@ -79,11 +79,10 @@ func (s *server) Chat(stream pb.ExampleService_ChatServer) error {
 		}
 		log.Printf("Received message: %s", msg.GetMessage())
 
-		// Echo the message back to the client
 		if err := stream.Send(&pb.ChatMessage{Message: "Server received: " + msg.GetMessage()}); err != nil {
 			return err
 		}
-		time.Sleep(time.Second) // Simulate delay between messages
+		time.Sleep(time.Second)
 	}
 }
 

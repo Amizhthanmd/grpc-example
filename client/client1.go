@@ -40,7 +40,7 @@ func UnaryClient(ctx context.Context, client pb.ExampleServiceClient) {
 	// Create metadata
 	md := metadata.New(map[string]string{
 		"token":        "dververbt3",
-		"organization": "goatrobotics",
+		"organization": "xyz",
 	})
 
 	ctx = metadata.NewOutgoingContext(ctx, md)
@@ -69,7 +69,7 @@ func ClientStream(ctx context.Context, client pb.ExampleServiceClient) {
 		if err := stream.Send(&pb.HelloRequest{Message: msg}); err != nil {
 			log.Fatalf("could not send message: %v", err)
 		}
-		time.Sleep(time.Second) // Simulate delay between messages
+		time.Sleep(time.Second) 
 	}
 
 	reply, err := stream.CloseAndRecv()
@@ -111,7 +111,7 @@ func BidirectionalStream(ctx context.Context, client pb.ExampleServiceClient) {
 			if err := stream.Send(&pb.ChatMessage{Message: msg}); err != nil {
 				log.Fatalf("could not send message: %v", err)
 			}
-			time.Sleep(time.Second) // Simulate delay between messages
+			time.Sleep(time.Second)
 		}
 		stream.CloseSend()
 	}()
